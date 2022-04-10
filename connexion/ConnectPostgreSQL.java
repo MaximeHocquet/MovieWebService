@@ -114,9 +114,9 @@ public class ConnectPostgreSQL
   public String table_res(String type_table,  ResultSet res) {
 	  String result = null;
 	  switch (type_table) {
-		case "connexion":
+		case "utilisateur":
 			try {
-				result = res.getString(1)+"  "+res.getString(2)+"  "+res.getString(3)+"  "+res.getString(4)+"  "+res.getString(5);
+				result = res.getString(1)+"  "+res.getString(2);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

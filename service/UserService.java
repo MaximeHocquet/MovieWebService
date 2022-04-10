@@ -1,41 +1,44 @@
 package project.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import project.connexion.ConnectPostgreSQL;
 import project.data.User;
 
 public class UserService {
-	  ConnectPostgreSQL connect = new ConnectPostgreSQL("localhost","5432","db_banque","maxime","gHIAw3,N");
+	  ConnectPostgreSQL connect = new ConnectPostgreSQL("localhost","5432","moviesdb","maxime","gHIAw3,N");
 
 	private int getNewId() { 
 		int newId = 0; 
-		for (int id : STUDENT_DATA.keySet()) {
-			if (newId < id) newId = id; 
-		} 
+		
 		return ++newId; 
 			
 	} 
-	public User addStudent(User s) {
+	public User addStudent(User u) {
 		int id = getNewId();
-		int insert_effectue = connect.update("INSERT INTO users VALUES ("+id+",'"+s.getName()+"')","user");
+		int insert_effectue = connect.update("INSERT INTO utilisateur VALUES ("+id+",'"+u.getName()+"')","utilisateur");
 		if(insert_effectue == 0) {
-			System.out.println("Probleme add user");
+			System.out.println("Problem add user");
+			return null;
 		}
-		if(STUDENT_DATA.get(s.getId()) != null) { return null; } 
-		s.setId(id);
-		STUDENT_DATA.put(id, s); return s;
+		return u;
 	} 
 	public boolean deleteStudent(int id) {
-		if(STUDENT_DATA.get(id) == null) {
-			return false; 
-			} 
-		STUDENT_DATA.remove(id); 
+		int delete_effectue = connect.update("DELETE FROM utilisateur WHERE id = '"+id+"'","utilisateur");
+		if(delete_effectue == 0) {
+			System.out.println("Problem delete user");
+			return false;
+		}
 		return true;
-		} 
-	public Student getStudent(int id) { 
-		return STUDENT_DATA.get(id); 
-		} 
+	} 
+	public User getUser(int id, String name) {
+		User u = null;
+		String query = connect.query("SELECT * FROM utilisateur WHERE id='"+id+"'", "utilisateur");
+		if(query=="") {
+			System.out.println("L'identifiant n'existe pas");
+			return u;
+		}
+		else {
+			u = new User(id, name);
+			return u;
+		}
 	}
 }

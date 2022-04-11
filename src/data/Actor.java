@@ -1,6 +1,6 @@
 package data;
 
-public class Actor {
+public class Actor { 
 
 	private Integer actor_id;
 	private String name;

@@ -1,5 +1,6 @@
 package project.ressource; 
-import java.net.*; import javax.ws.rs.*;
+import java.net.*; 
+import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import project.data.User;
@@ -10,8 +11,8 @@ import project.service.UserService;
 	@Context UriInfo uriInfo;
 	@POST @Consumes(MediaType.APPLICATION_XML) 
 	@Produces(MediaType.APPLICATION_XML) 
-	public Response addStudent(User s) {
-		User user = service.addStudent(s);
+	public Response addUser(User s) {
+		User user = service.addUser(s);
 		if(user == null) {
 			return Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -22,20 +23,20 @@ import project.service.UserService;
 
 @DELETE @Path("/{id}")
 @Produces(MediaType.APPLICATION_XML) 
-public Response deleteStudent(@PathParam("id") int id) {
-	if(service.deleteStudent(id) == false) { 
+public Response deleteUser(@PathParam("id") int id) {
+	if(service.deleteUser(id) == false) { 
 		return Response.status(Response.Status.NOT_FOUND).build(); 
 	} 
 	return Response.status(Response.Status.OK).build(); 
 }
 @GET @Path("/{id}") 
 @Produces(MediaType.APPLICATION_XML) 
-public Response getStudent(@PathParam("id") int id , String name) { 
-	User student = service.getUser(id, name); 
-	if(student == null) { 
+public Response getUser(@PathParam("id") int id) { 
+	User user = service.getUser(id); 
+	if(user == null) { 
 		return Response.status(Response.Status.NOT_FOUND).build(); 
 	} 
 	Link link = Link.fromUri(uriInfo.getRequestUri()).rel("self").type("application/xml").build(); 
-	return Response.status(Response.Status.OK).entity(student).links(link).build();
+	return Response.status(Response.Status.OK).entity(user).links(link).build();
 	} 
 }

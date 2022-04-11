@@ -2,7 +2,7 @@ package project.data;
 
 public class User {
 
-	private Integer id;
+	private int id;
 	private String name;
 	
 	public User() {

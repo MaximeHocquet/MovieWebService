@@ -122,41 +122,17 @@ public class ConnectPostgreSQL
 				e.printStackTrace();
 			}
 			break;
-		case "compte":
+		case "film":
 			try {
-				result = res.getString(1)+"  "+res.getDate(2)+"  "+res.getString(3)+"  "+res.getDouble(4);
+				result = res.getString(1)+"  "+res.getDate(2);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;
-		case "depot":
+		case "acteur":
 			try {
 				result = res.getInt(1)+"  "+res.getDouble(2);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "retrait":
-			try {
-				result = res.getInt(1)+"  "+res.getDouble(2);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "transfert":
-			try {
-				result = res.getInt(1)+"  "+res.getString(2)+"  "+res.getString(3)+"  "+res.getString(4)+"  "+res.getInt(5);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			break;
-		case "transactions":
-			try {
-				result = res.getInt(1)+"  "+res.getString(2)+"  "+res.getDate(3)+"  "+res.getString(4);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

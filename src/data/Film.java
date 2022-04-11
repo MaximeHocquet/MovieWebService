@@ -9,6 +9,11 @@ public class Film {
 	private Integer ranking ;
 	private ArrayList <Actor> actors ;
 	
+	public Film(Integer id, String titre) {
+		film_id = id ;
+		title = titre ;		
+	}
+
 	public Integer getFilm_id() {
 		return film_id;
 	}

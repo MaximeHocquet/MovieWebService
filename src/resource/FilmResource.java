@@ -1,4 +1,4 @@
-package resource ;
+package resource ; 
 
 import java.net.*;
 import javax.ws.rs.*;

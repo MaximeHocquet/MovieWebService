@@ -5,6 +5,11 @@ public class Actor {
 	private Integer actor_id;
 	private String name;
 
+	public Actor(Integer id, String nom) {
+		actor_id = id ;
+		name = nom ;
+	}
+
 	public Integer getActor_id() {
 		return actor_id;
 	}

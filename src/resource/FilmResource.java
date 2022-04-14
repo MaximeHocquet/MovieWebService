@@ -3,6 +3,7 @@ package resource ;
 import java.net.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
 import data.*;
 import service.*;
 
@@ -46,12 +47,12 @@ public class FilmResource {
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/{title}")
 	@Produces(MediaType.APPLICATION_XML)
 	
-	public Response getFilm(@PathParam("id") int id) {
+	public Response getFilm(@PathParam("title") String title) {
 		
-		Film film = service.getFilm(id);
+		Film film = service.getFilm(title);
 		
 		if (film == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();

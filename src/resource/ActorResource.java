@@ -3,6 +3,7 @@ package resource ;
 import java.net.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+
 import data.*;
 import service.*;
 
@@ -19,7 +20,7 @@ public class ActorResource {
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
 	
-	public Response addFilm(Actor a) {
+	public Response addActor(Actor a) {
 		
 		Actor actor = service.addActor(a);
 		
@@ -46,12 +47,12 @@ public class ActorResource {
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("/{name}")
 	@Produces(MediaType.APPLICATION_XML)
 	
-	public Response getActor(@PathParam("id") int id) {
+	public Response getActor(@PathParam("name") String name) {
 		
-		Actor actor = service.getActor(id);
+		Actor actor = service.getActor(name);
 		
 		if (actor == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();

@@ -1,11 +1,13 @@
 package service; 
 
 import java.util.* ;
-import data.Actor ;
+import java.util.Map.Entry;
+
+import data.Actor;
 
 public class ActorService {
 	
-	private static Map<Integer, Actor> ACTOR_DATA = new HashMap<Integer, Actor>();
+	private static HashMap<Integer, Actor> ACTOR_DATA = new HashMap<Integer, Actor>();
 
 	private int getNewId() {
 		
@@ -44,7 +46,18 @@ public class ActorService {
 		return true;
 	}
 
-	public Actor getActor(int id) {
+	public Actor getActor(String name) {
+		
+		int id = 0 ;
+
+		for (Entry<Integer, Actor> entry : ACTOR_DATA.entrySet()) {
+
+			if (entry.getValue().getName().equals(name)) {
+				id = entry.getKey() ;
+				break;
+			}
+		}
+
 		return ACTOR_DATA.get(id);
 	}
 }

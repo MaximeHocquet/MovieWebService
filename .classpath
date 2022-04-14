@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Martinho/Documents/Cergy/L3_Web_Services/apache-cxf-2.7.18/apache-cxf-2.7.18/lib/javax.ws.rs-api-2.1.1.jar" rootpath="/"/>
+	<classpathentry kind="lib" path="C:/Users/Martinho/Documents/Cergy/L3_Web_Services/apache-cxf-2.7.18/apache-cxf-2.7.18/lib/cxf-2.7.18.jar" rootpath="/"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

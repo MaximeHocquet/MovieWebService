@@ -1,13 +1,19 @@
-package resource ; 
+package movie.web.resource ; 
 
 import java.net.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import data.*;
-import service.*;
+import movie.web.data.*;
+import movie.web.service.*;
 
 @Path("/film")
+
+/**
+* 
+* @author Alexandre GOMES DA COSTA <alexandre.gomes-da-costa@etu.cyu.fr> & Maxime HOCQUET <maxime.hocquet@etu.cyu.fr>
+*
+*/
 
 public class FilmResource {
 	
@@ -19,6 +25,13 @@ public class FilmResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
+	
+	/**
+	* 
+	* @param f Le film que l'on souhaite ajouter au service
+	* @return La réponse à la requête d'ajout du film f
+	*
+	*/
 	
 	public Response addFilm(Film f) {
 		
@@ -37,6 +50,13 @@ public class FilmResource {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_XML)
 	
+	/**
+	* 
+	* @param id L'identifiant du film que l'on souhaite supprimer du service
+	* @return La réponse à la requête de suppresion du film dont l'identifiant est id
+	*
+	*/
+	
 	public Response deleteFilm(@PathParam("id") int id) {
 		
 		if (service.deleteFilm(id) == false) {
@@ -45,6 +65,13 @@ public class FilmResource {
 		
 		return Response.status(Response.Status.OK).build();
 	}
+	
+	/**
+	* 
+	* @param title Le nom du film que l'on souhaite récupérer à partir du service
+	* @return La réponse à la requête de récupération du film dont le nom est title
+	*
+	*/
 
 	@GET
 	@Path("/{title}")

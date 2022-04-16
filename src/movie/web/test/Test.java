@@ -1,4 +1,4 @@
-package test;
+package movie.web.test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import org.apache.cxf.jaxrs.client.*;
-import data.*;
+import movie.web.data.*;
+
+/**
+* 
+* @author Alexandre GOMES DA COSTA <alexandre.gomes-da-costa@etu.cyu.fr> & Maxime HOCQUET <maxime.hocquet@etu.cyu.fr>
+*
+*/
 
 public class Test {
 
@@ -47,16 +53,24 @@ public class Test {
 		deleteActor(acteur2.getActor_id());
 				
 	}
+	
+	/**
+	* 
+	* @param title Le nom du film que l'on souhaite ajouter au service
+	* @return L'identifiant du film que l'on vient d'ajouter (ou null si le film n'a pas pu être ajouté)
+	* @throws IOException 
+	*
+	*/
 
-	private static Integer addFilm(String name) throws IOException {
+	private static Integer addFilm(String title) throws IOException {
 		
-		System.out.print("\nAdding " + name + "... ");
+		System.out.print("\nAdding " + title + "... ");
 		WebClient c = WebClient.create(webServiceUrl1);
 		
-		Float ranking = getRanking(name) ;
-		HashMap<Integer,Actor> actorlist = getActorList(name) ;
+		Float ranking = getRanking(title) ;
+		HashMap<Integer,Actor> actorlist = getActorList(title) ;
 		
-		Film f = new Film(name, ranking, actorlist);
+		Film f = new Film(title, ranking, actorlist);
 		
 		Response r = c.post(f);
 		
@@ -70,6 +84,13 @@ public class Test {
 		
 		return Integer.parseInt(uri.substring(uri.lastIndexOf('/') + 1));
 	}
+	
+	/**
+	* 
+	* @param id L'identifiant du film que l'on souhaite supprimer du service
+	* @return true si le film a été supprimé ou sinon false 
+	*
+	*/
 
 	private static Boolean deleteFilm(Integer id) {
 		
@@ -84,6 +105,13 @@ public class Test {
 		System.out.println("Oops!");
 		return false;
 	}
+	
+	/**
+	* 
+	* @param title Le nom du film que l'on souhaite récupérer à partir du service
+	* @return le film correspondant au nom donné par title (ou sinon null car aucun film n'a un identifiant de 0) 
+	* @exception NotFoundException
+	*/
 
 	private static Film getFilm(String title) {
 		
@@ -100,6 +128,13 @@ public class Test {
 		return f;
 	}
 	
+	/**
+	* 
+	* @param name Le nom de l'acteur que l'on souhaite ajouter au service
+	* @return L'identifiant de l'acteur que l'on vient d'ajouter (ou null si l'acteur n'a pas pu être ajouté)
+	*
+	*/
+	
 	private static Integer addActor(String name) {
 		System.out.print("Adding " + name + "... ");
 		WebClient c = WebClient.create(webServiceUrl2);
@@ -113,6 +148,13 @@ public class Test {
 		System.out.println("OK.");
 		return Integer.parseInt(uri.substring(uri.lastIndexOf('/') + 1));
 	}
+	
+	/**
+	* 
+	* @param id L'identifiant de l'acteur que l'on souhaite supprimer du service
+	* @return true si l'acteur a été supprimé ou sinon false 
+	*
+	*/
 
 	private static Boolean deleteActor(Integer id) {
 		System.out.print("Deleting " + id + "... ");
@@ -125,6 +167,14 @@ public class Test {
 		System.out.println("Oops!");
 		return false;
 	}
+	
+	/**
+	* 
+	* @param name Le nom de l'acteur que l'on souhaite récupérer à partir du service
+	* @return l'acteur correspondant au nom donné par name (ou sinon null car aucun acteur n'a un identifiant de 0) 
+	* @exception NotFoundException
+	*
+	*/
 
 	private static Actor getActor(String name) {
 		System.out.print("Getting " + name + "... ");
@@ -138,12 +188,20 @@ public class Test {
 		}
 		return a;
 	}
+	
+	/**
+	* 
+	* @param title Le nom du film pour lequel on souhaite récupérer la note à partir de l'API OMDB
+	* @return La note du film (ou -1 si le film n'a pas pu être trouvé) 
+	* @throws IOException
+	* 
+	*/
 
-	public static Float getRanking(String title_name) throws IOException {
+	public static Float getRanking(String title) throws IOException {
 
 		Float ranking = (float) -1;
 
-		URL url = new URL("http://www.omdbapi.com/?apikey=c64d2da6&t=" + title_name + "&r=xml");
+		URL url = new URL("http://www.omdbapi.com/?apikey=c64d2da6&t=" + title + "&r=xml");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Content-Type", "application/xml");
@@ -185,11 +243,19 @@ public class Test {
 
 	}
 	
-	public static HashMap<Integer,Actor> getActorList(String title_name) throws IOException {
+	/**
+	* 
+	* @param title Le nom du film pour lequel on souhaite récupérer la liste d'acteurs à partir de l'API OMDB
+	* @return La liste d'acteurs du film (ou la liste vide si le film n'a pas pu être trouvé)
+	* throws IOException
+	*
+	*/
+	
+	public static HashMap<Integer,Actor> getActorList(String title) throws IOException {
 		
 		HashMap<Integer,Actor> actorlist = new HashMap<Integer, Actor>();
 
-		URL url = new URL("http://www.omdbapi.com/?apikey=c64d2da6&t=" + title_name + "&r=xml");
+		URL url = new URL("http://www.omdbapi.com/?apikey=c64d2da6&t=" + title + "&r=xml");
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Content-Type", "application/xml");

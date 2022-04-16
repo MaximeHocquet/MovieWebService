@@ -1,13 +1,19 @@
-package resource ; 
+package movie.web.resource ; 
 
 import java.net.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import data.*;
-import service.*;
+import movie.web.data.*;
+import movie.web.service.*;
 
 @Path("/actor")
+
+/**
+* 
+* @author Alexandre GOMES DA COSTA <alexandre.gomes-da-costa@etu.cyu.fr> & Maxime HOCQUET <maxime.hocquet@etu.cyu.fr>
+*
+*/
 
 public class ActorResource {
 	
@@ -19,6 +25,13 @@ public class ActorResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
+	
+	/**
+	* 
+	* @param a L'acteur que l'on souhaite ajouter au service
+	* @return La réponse à la requête d'ajout de l'acteur a
+	*
+	*/
 	
 	public Response addActor(Actor a) {
 		
@@ -37,6 +50,13 @@ public class ActorResource {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_XML)
 	
+	/**
+	* 
+	* @param id L'identifiant de l'acteur que l'on souhaite supprimer du service
+	* @return La réponse à la requête de suppresion de l'acteur dont l'identifiant est id
+	*
+	*/
+	
 	public Response deleteActor(@PathParam("id") int id) {
 		
 		if (service.deleteActor(id) == false) {
@@ -49,6 +69,13 @@ public class ActorResource {
 	@GET
 	@Path("/{name}")
 	@Produces(MediaType.APPLICATION_XML)
+	
+	/**
+	* 
+	* @param name Le nom de l'acteur que l'on souhaite récupérer à partir du service
+	* @return La réponse à la requête de récupération de l'acteur dont le nom est name
+	*
+	*/
 	
 	public Response getActor(@PathParam("name") String name) {
 		
